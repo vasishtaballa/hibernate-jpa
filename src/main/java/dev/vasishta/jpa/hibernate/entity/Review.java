@@ -1,16 +1,11 @@
 package dev.vasishta.jpa.hibernate.entity;
 
 import lombok.Getter;
-import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
-@ToString
 public class Review {
 
     @Id
@@ -22,6 +17,9 @@ public class Review {
     @Column(nullable = false)
     private String description;
 
+    @ManyToOne
+    private Course course;
+
     protected Review() {
     }
 
@@ -31,11 +29,23 @@ public class Review {
     }
 
     public void setRating(String rating) {
-
         this.rating = rating;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", rating='" + rating + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

@@ -1,5 +1,6 @@
 package dev.vasishta.jpa.hibernate.repository;
 
+import dev.vasishta.jpa.hibernate.entity.Course;
 import dev.vasishta.jpa.hibernate.entity.Passport;
 import dev.vasishta.jpa.hibernate.entity.Student;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +45,18 @@ public class StudentRepository {
         Student student = new Student("Mike");
 
         student.setPassport(passport);
+        em.persist(student);
+    }
+
+    public void insertStudentAndCourse() {
+        Student student = new Student("Jack");
+        Course course = new Course("Redis in 25 steps");
+
+        em.persist(student);
+        em.persist(course);
+
+        student.addCourse(course);
+        course.addStudent(student);
         em.persist(student);
     }
 }

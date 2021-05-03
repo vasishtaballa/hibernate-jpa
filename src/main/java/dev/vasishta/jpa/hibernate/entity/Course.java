@@ -1,16 +1,16 @@
 package dev.vasishta.jpa.hibernate.entity;
 
 import lombok.Getter;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
-@ToString
 @Table(name = "Course")
 @NamedQuery(name = "get_all_courses", query = "Select c from Course c")
 @NamedQueries(value = {
@@ -33,6 +33,12 @@ public class Course {
     @UpdateTimestamp
     private LocalDateTime lastUpdatedDate;
 
+    @OneToMany(mappedBy = "course")
+    private List<Review> reviews;
+
+    @ManyToMany(mappedBy = "courses")
+    private List<Student> students = new ArrayList<>();
+
     protected Course() {
     }
 
@@ -42,5 +48,27 @@ public class Course {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean addReview(Review review) {
+        return this.reviews.add(review);
+    }
+
+    public boolean removeReview(Review review) {
+        return this.reviews.remove(review);
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", createdDate=" + createdDate +
+                ", lastUpdatedDate=" + lastUpdatedDate +
+                '}';
+    }
+
+    public boolean addStudent(Student student) {
+        return this.students.add(student);
     }
 }

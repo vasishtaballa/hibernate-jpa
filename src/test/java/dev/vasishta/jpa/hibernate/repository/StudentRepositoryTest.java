@@ -1,6 +1,7 @@
 package dev.vasishta.jpa.hibernate.repository;
 
 import dev.vasishta.jpa.hibernate.HibernateJpaApplication;
+import dev.vasishta.jpa.hibernate.entity.Course;
 import dev.vasishta.jpa.hibernate.entity.Passport;
 import dev.vasishta.jpa.hibernate.entity.Student;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,28 @@ public class StudentRepositoryTest {
         Passport passport = em.find(Passport.class, 40001L);
         log.info("Passport with id 40001 -> {}", passport);
         log.info("Student of the corresponding passport is -> {}", passport.getStudent());
+    }
+
+    @Test
+    @Transactional
+    public void testPersist() {
+        Passport passport = new Passport("Q894736");
+        em.persist(passport);
+
+        Student student = new Student("Covid");
+
+        student.setPassport(passport);
+        em.persist(student);
+
+        em.flush();
+    }
+
+    @Test
+    @Transactional
+    public void testStudentAndCourses() {
+        Student student = em.find(Student.class, 20001L);
+        log.info("Student: {}", student);
+        log.info("Student Courses: {}", student.getCourses());
     }
 
 }

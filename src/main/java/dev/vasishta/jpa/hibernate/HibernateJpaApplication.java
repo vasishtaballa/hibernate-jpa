@@ -21,5 +21,10 @@ public class HibernateJpaApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // repository.saveStudentWithPassport();
+        // List<Review> reviews = new ArrayList<>();
+        // reviews.add(new Review("FIVE", "Great! Hats-off stuff"));
+        // reviews.add(new Review("THREE", "Average content"));
+        // repository.addReviewsForCourse(10003L, reviews);
+        repository.insertStudentAndCourse();
     }
 }
