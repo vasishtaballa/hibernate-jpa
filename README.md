@@ -1,2 +1,2 @@
 # hibernate-jpa
-Sample project
+Sample project on master branch
